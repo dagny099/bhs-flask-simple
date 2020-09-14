@@ -23,14 +23,14 @@ def around():
                 missing.append(k)
         if missing:
             feedback = f"Missing fields for {', '.join(missing)}"
-            return render_template('around.html', feedback=feedback)
+            return render_template('public/around.html', feedback=feedback)
 
         username = req["username"]
         email = req["email"]
         password = req["password"]
         print(f"username is: {username}, email is: {email}, and password is: {password}")
         return redirect(request.url)
-    return render_template('admin/around.html')
+    return render_template('public/around.html')
 
 @app.route('/hello/<name>')
 def hello_name(name):
