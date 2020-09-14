@@ -7,17 +7,26 @@
     <meta name="author" content="@dagny099">
     <!-- <link rel="icon" href="favicon.ico"> -->
 
-    <title>Wilkommen, bienvenue, and welcome to Heroku!</title>
+    <title>Barb Data Incubator Mini Project!</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Bokeh required CSS -->
+    <link href="http://cdn.pydata.org/bokeh/release/bokeh-2.2.1.min.css" rel="stylesheet">
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.1.min.js" crossorigin="anonymous"></script>
+    {{ the_script|safe }}
   </head>
   <body>
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-left">
-          <h2>Around</h2>
-          <p> And around and around we go...  <br>
+          <h2>Interactive Stock Look-Up</h2>
+          <br>
+          {{ the_div|safe }}
+          {% if infoTxt %}
+          <p class="text-success float-right"><br>{{infoTxt[0]}}<br></p>
+          <p class="text-info float-right">{{infoTxt[1]}}<br>{{infoTxt[2]}}</p>
+          {% endif %}
           <form action="/around" method="POST">
             <div class="form-group">
               <label>Stock Ticker Symbol</label>
@@ -31,13 +40,8 @@
           {% if feedback %}
           <p class="text-danger float-right">{{feedback}}</p>
           {% endif %}
-          {% if infoTxt %}
-          <p class="text-success float-right"><br>{{infoTxt[0]}}<br></p>
-          <p class="text-info float-right">{{infoTxt[1]}}<br>{{infoTxt[2]}}</p>
-          {% endif %}
-          </form>
-            <a href="/">Home</a>
-          </p>
+        </form>
+        <a href="/">Home</a>
         </div>
       </div>
     </div>
