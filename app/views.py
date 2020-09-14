@@ -54,8 +54,8 @@ def about():
   """
 #  return render_template('public/about.html')
 
-@app.route('/around', methods=["GET", "POST"])
-def around():
+@app.route('/stocks', methods=["GET", "POST"])
+def enter_stock_ticker():
     if request.method=="POST":
         req = request.form
 
@@ -66,7 +66,7 @@ def around():
                 missing.append(k)
         if missing:
             feedback = f"Missing fields for {', '.join(missing)}"
-            return render_template('public/around.html', feedback=feedback)
+            return render_template('public/stocks.html', feedback=feedback)
 
         #Give feedback if form elements are missing:
         info = getStockData(req["symb"], req["startdate"], datetime.date.today())
@@ -77,17 +77,17 @@ def around():
         script, div = components(graph)
         if len(info)==0:
             feedback = f"{symb} Is not a valid stock symbol!"
-            return render_template('public/around.html', feedback=feedback)
+            return render_template('public/stocks.html', feedback=feedback)
         else:
             infoSch = f"Stock symbol is: {req['symb']}, Start Date is: {req['startdate']}, and End Date is: {datetime.date.today()}"
             infoMax = f"In that period, the HIGHEST closing was {info['Close'].max()} on {info['Close'].idxmax().strftime('%B %d, %Y')}."
             infoMin = f"In that period, the LOWEST closing was {info['Close'].min()} on {info['Close'].idxmin().strftime('%B %d, %Y')}."
             return render_template(
-                'public/around.html',
+                'public/stocks.html',
                 infoTxt=[infoSch, infoMax, infoMin],
                 the_div=div, the_script=script,
                 req = req)
-    return render_template('public/around.html')
+    return render_template('public/stocks.html')
 
 @app.route('/hello/<name>')
 def hello_name(name):
